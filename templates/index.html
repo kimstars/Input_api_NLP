@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select collection</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/selectCollection">NLP MTA Data</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/display-data">Display all data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Hướng dẫn</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <br>
+    <div class="container">
+        <div>
+            <h1>Tạo collection chứa chủ đề các đoạn văn bản</h1>
+
+            <h6><i>
+                    *Tránh bị nhầm lẫn các bộ data, mn hãy lựa chọn collection trước khi thực hiện push data nhé
+            </i></h6>
+
+            
+
+        </div>
+
+        <form action="/" method="POST">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Create collection" name="colname">
+                <textarea rows="1" class="form-control" id="ip" name="ip" hidden></textarea>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+        <form action="/display" method="POST">
+            <label for="">Select Collection</label>
+            <div class="input-group">
+                <select class="form-control" id="choose" name="nameCollection">
+                    {% for item in CollectionName %}
+                    <option value="{{item}}">{{item}}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+
+        </form>
+        <br>
+        <br>
+        <h5>
+            <a href="https://rajpurkar.github.io/SQuAD-explorer/explore/v2.0/dev/" target="_blank">The Stanford Question Answering Dataset
+        </h5>
+    </div>
+
+
+    <script>
+        remove_fields.onclick = function () {
+            var input_tags = getForm.getElementsByTagName('input');
+
+            console.log(input_tags)
+            if (input_tags.length > 2) {
+                getForm.removeChild(getForm.lastChild);
+                getForm.removeChild(getForm.lastChild);
+                getForm.removeChild(getForm.lastChild);
+            }
+        }
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $.getJSON('//api.ipify.org?format=jsonp&callback=?', function (data) {
+            $("#ip").html(data.ip);
+        });
+    </script>
+</body>
+
+</html>

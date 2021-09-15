@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiển thị toàn bộ data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</head>
+<style>
+    .proc {
+        overflow: hidden;
+        height: 10px;
+        text-overflow: ellipsis;
+        
+    }
+</style>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">NLP MTA Data</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/display-data">Display all data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Hướng dẫn</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+
+        <h1>{{tieude}}</h1>
+        <h2>Số bản ghi trên database là {{size}}</h2>
+        <br>
+        <i>#Bản ghi đầu tiên chứa thông tin collection (không thể xóa hay chỉnh sửa)</i>
+
+        <form action="/display" method="post">
+            <h4><label for="">Select Collection</label></h4>
+            <div class="input-group">
+                <select class="form-control" id="choose" name="nameCollection">
+                    {% for item in CollectionName %}
+                    <option value="{{item}}">{{item}}</option>
+                    {% endfor %}
+                </select>
+                <div class="input-group-append">
+                    <button class="btn btn-primary">Submit</button>
+                  </div>
+            </div>
+        </form>
+        <br>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="thead-dark">
+                    <th scope="col">_id</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Json data</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in jsonData %}
+                <tr>
+                    <th>{{item['_id']}}</th>
+                    <th>{{item['content']}}</th>
+                    <th>{{item['qas']}}</th>
+                    <td>
+                        <a class="btn btn-warning" href="/editData/{{item['_id']}}/{{nameCollection}}" role="button">Edit</a>
+                        <a class="btn btn-danger" href="/delete/{{item['_id']}}/{{nameCollection}}" role="button"
+                        onclick="return confirm('Đã chắc là DELETE chưa thế bạn trẻ? Xóa rồi là không undo được đâu nhé! :3');"            >Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- <div class="container">
+        <a href="/delete/{{id}}"> Delete record {{id}} here </a>
+    </div> -->
+    <footer class="tabcontent container">
+
+        <div>
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear())</script>
+            <a href="https://www.facebook.com/toilahs12">Chu Tuấn Kiệt</a>
+        </div>
+    </footer>
+</body>
+
+</html>
