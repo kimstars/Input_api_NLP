@@ -85,7 +85,6 @@ def write_home(request: Request ):
                                                     "CollectionName":colname,
                                                     })
 
- git config --list
 
 def MainProcess(collection, content, listQuestion , listAnswer):# tạo data và thêm vào db
     listContent = numbering.contentToList(content)
