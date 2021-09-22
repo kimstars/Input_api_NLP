@@ -236,12 +236,7 @@ async def form_delete(request: Request):
     return templates.TemplateResponse("crawl.html", {"request": request, "CollectionName":colname})
 
 @app.post('/crawl')
-async def createCollection(nameCollection: str  = Form(...), url: str = Form(...)):
-    print(nameCollection) 
-    time = datetime.datetime.now()
-    collection = mydb[nameCollection]
-    create_time = {"name": nameCollection, "time create": time}
-    x = collection.insert_one(create_time)
+async def createCollection(request: Request,nameCollection: str  = Form(...), url: str = Form(...)):
     diclist = crawlData(url)
     for li in diclist:
         content = li['content']
@@ -249,9 +244,7 @@ async def createCollection(nameCollection: str  = Form(...), url: str = Form(...
         listQuestion = numbering.createListQuestion(qas) 
         listAnswer = numbering.createListAnswer(qas)
         MainProcess(collection, content, listQuestion, listAnswer)
-        
-    
-    return "done"
+    return templates.TemplateResponse("success.html",{"request": request})
 
 
 

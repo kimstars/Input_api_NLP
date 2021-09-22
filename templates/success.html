@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select collection</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="/">NLP MTA Data</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/display-data">Display all data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/crawl">CÀO DATA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Hướng dẫn</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="alert alert-success">
+            <strong>Thành công rồi!</strong> Bạn vừa thực hiện một công việc rất tuyệt vời. Cảm ơn bạn đã sử dụng chức năng này !! <br> Giờ đây bạn có thể vào Display-data để xem thành quả của mình 
+        </div>
+
+
+        <img src="{{ url_for('static', path='./image/votay.jpg') }}" class="img-thumbnail" width="auto">
+
+    </div>
+
+    <br>
+    
+    <footer class="tabcontent container">
+
+        <div>
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear())</script>
+            <a href="https://www.facebook.com/toilahs12">Chu Tuấn Kiệt</a>
+        </div>
+    </footer>
+</body>
+
+</html>
