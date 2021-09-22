@@ -12,6 +12,9 @@ from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 import os
 import datetime
+from bs4 import BeautifulSoup
+import urllib.request
+
 load_dotenv()
 
 myclient = pymongo.MongoClient(os.environ.get("DB_URL"))
@@ -32,6 +35,11 @@ class QAS(BaseModel) :
 class data(BaseModel) : 
 	content : str
 	qas: list
+ 
+class NEWS(BaseModel): 
+	content : str
+	qas : list
+
  
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -117,7 +125,7 @@ def MainProcess(collection, content, listQuestion , listAnswer):# tạo data và
 @app.post('/home')
 async def handle_form(content : str = Form(...), qas : list = Form(...), nameCollection:str = Form(...)):
     collection = mydb[nameCollection]
-    listQuestion = numbering.createListQuestion(qas)
+    listQuestion = numbering.createListQuestion(qas) 
     listAnswer = numbering.createListAnswer(qas)
     return MainProcess(collection, content, listQuestion, listAnswer)
 
@@ -216,3 +224,59 @@ async def updateData(content : str = Form(...), qas : list = Form(...), id = For
 @app.get("/guide", response_class=HTMLResponse)
 def write_home(request: Request):
     return templates.TemplateResponse("guide.html", {"request": request})
+
+
+# ========================================= CRAWL DATA ===========================================================
+
+
+@app.get("/crawl", response_class=HTMLResponse)
+async def form_delete(request: Request):
+    colname = mydb.list_collection_names()
+    print(colname)
+    return templates.TemplateResponse("crawl.html", {"request": request, "CollectionName":colname})
+
+@app.post('/crawl')
+async def createCollection(nameCollection: str  = Form(...), url: str = Form(...)):
+    print(nameCollection) 
+    time = datetime.datetime.now()
+    collection = mydb[nameCollection]
+    create_time = {"name": nameCollection, "time create": time}
+    x = collection.insert_one(create_time)
+    diclist = crawlData(url)
+    for li in diclist:
+        content = li['content']
+        qas = li['qas']
+        listQuestion = numbering.createListQuestion(qas) 
+        listAnswer = numbering.createListAnswer(qas)
+        MainProcess(collection, content, listQuestion, listAnswer)
+        
+    
+    return "done"
+
+
+
+def crawlData(url):
+    dictList = []
+    page = urllib.request.urlopen(url)
+    soup = BeautifulSoup(page, 'html.parser')
+    news = soup.find_all('div', attrs={'class' : 'para-wrap'})
+
+    for i in range(len(news)):
+        content = (news[i].find('pre').text)
+        qaswrap = news[i].find_all('div', class_='qa-wrap')
+        li = []
+        for j in range(len(qaswrap)):
+            question = qaswrap[j].find_all('strong',class_='question')
+            answer = qaswrap[j].find_all('span',class_='answer')
+            if(not len(answer)):
+                answer = qaswrap[j].find_all('span',class_='no-answer')
+            if(len(question)):
+                li.append(question[0].text)
+                li.append(answer[0].text)
+        temp = NEWS(
+            content = content,
+            qas = li
+        ).dict()
+        dictList.append(temp)
+        
+    return dictList
