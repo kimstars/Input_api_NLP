@@ -239,6 +239,7 @@ async def form_delete(request: Request):
 @app.post('/crawl')
 async def createCollection(request: Request,nameCollection: str  = Form(...), url: str = Form(...)):
     diclist = crawlData(url)
+    collection = mydb[nameCollection]
     for li in diclist:
         content = li['content']
         qas = li['qas']
