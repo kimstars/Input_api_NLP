@@ -20,7 +20,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    
+
 </head>
 
 <body>
@@ -87,8 +87,8 @@
         <label for="">Các câu trả lời tìm kiếm được</label>
 
         <ul>
-            {% for item in ListAns %}
-            <li>{{item}}</li>
+            {% for i in range(0, leng) %}
+            <li> <a href= "{{ListLink[i]}}">{{ListAns[i]}}</li>
             {% endfor %}
         </ul>
     </div>

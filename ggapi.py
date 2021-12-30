@@ -19,10 +19,15 @@ def GGSearchAPI(question):
     n = len(results["organic_results"])
     if(n):
         res = []
+        listlink = []
         for i in range(n):
-            res.append(results["organic_results"][i]["snippet"])
-        return (res)
+            try: 
+                res.append(results["organic_results"][i]["snippet"])
+                listlink.append(results["organic_results"][i]["link"])
+            except Exception as e:
+                print(e)
+        return (res,listlink)
     else : 
-        return []
+        return ([],[])
     
 # print(GGSearchAPI("Ai là người giàu nhất thế giới?"))

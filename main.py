@@ -280,9 +280,13 @@ def crawlData(url):
 @app.get("/searchGG", response_class=HTMLResponse)
 async def Find_Ans(request: Request):
     ListAns = []
-    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns})
+    ListLink = []
+    leng = 0
+    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns, "ListLink":ListLink , "leng":leng})
 
 @app.post('/searchGG')
 async def Find_Ans(request: Request,question: str  = Form(...)):
-    ListAns = ggapi.GGSearchAPI(question)
-    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns })
+    (ListAns,ListLink) = ggapi.GGSearchAPI(question)
+    leng = (len(ListAns))
+    print("Số kết quả tìm được ===========> ",leng)
+    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns, "ListLink":ListLink, "leng":leng })
