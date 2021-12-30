@@ -14,6 +14,7 @@ import os
 import datetime
 from bs4 import BeautifulSoup
 import urllib.request
+import ggapi
 
 load_dotenv()
 
@@ -203,11 +204,11 @@ def UpdateProcess(collection, idObj, content, listQuestion , listAnswer):# updat
     )
     myquery = {"_id":  ObjectId(idObj)}
     newvalues = { "$set": newData.dict()}
-
+    
     collection.update(myquery, newvalues)
     return (newData.dict())
-
-
+    
+    
     
     
 @app.post('/update-data')
@@ -217,10 +218,10 @@ async def updateData(content : str = Form(...), qas : list = Form(...), id = For
     listQuestion = numbering.createListQuestion(qas)
     listAnswer = numbering.createListAnswer(qas)
     return UpdateProcess(collection, id, content, listQuestion, listAnswer)
-
-
-
-
+    
+    
+    
+    
 @app.get("/guide", response_class=HTMLResponse)
 def write_home(request: Request):
     return templates.TemplateResponse("guide.html", {"request": request})
@@ -273,3 +274,15 @@ def crawlData(url):
         dictList.append(temp)
         
     return dictList
+
+#================== GG Search ========================
+
+@app.get("/searchGG", response_class=HTMLResponse)
+async def Find_Ans(request: Request):
+    ListAns = []
+    return templates.TemplateResponse("searchGG.html", {"request": request, "ListAns":ListAns})
+
+@app.post('/searchGG')
+async def Find_Ans(request: Request,question: str  = Form(...)):
+    ListAns = ggapi.GGSearchAPI(question)
+    return templates.TemplateResponse("searchGG.html",{"request": request,"ListAns":ListAns })

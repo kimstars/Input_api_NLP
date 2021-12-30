@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Select collection</title>
+    <title>Search answer for question</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -42,7 +42,7 @@
                         <a class="nav-link" href="/crawl">CÀO DATA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/searchGG">Search And Answer</a>
+                        <a class="nav-link active" href="/searchGG">Search And Answer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/guide">Hướng dẫn</a>
@@ -55,72 +55,48 @@
 
     <br>
     <div class="container">
-        <div>
-            <h1>Tạo collection chứa chủ đề các đoạn văn bản</h1>
+        <div class="mb-4">
+            <h1>Tìm kiếm câu trả lời </h1>
 
             <h6><i>
-                    *Tránh bị nhầm lẫn các bộ data, mn hãy lựa chọn collection trước khi thực hiện push data nhé
-            </i></h6>
+                    Thực hiện tìm kiếm và tách thông tin từ tìm kiếm trên Google
+                </i></h6>
 
-            
+
 
         </div>
 
-        <form action="/" method="POST">
+        <form action="/searchGG" method="POST">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Create collection" name="colname">
-                <textarea rows="1" class="form-control" id="ip" name="ip" hidden></textarea>
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                <input type="text" class="form-control" placeholder="Câu hỏi của bạn ?" name="question">
             </div>
 
-        </form>
-
-        <form action="/display" method="POST">
-            <label for="">Select Collection</label>
-            <div class="input-group">
+            <!-- <label for="">Chọn collection muốn lưu data</label>
+            
+            <div class="input-group mb-3">
                 <select class="form-control" id="choose" name="nameCollection">
                     {% for item in CollectionName %}
                     <option value="{{item}}">{{item}}</option>
                     {% endfor %}
                 </select>
-                <div class="input-group-append">
-                    <button class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-
+            </div> -->
+            <button class="btn btn-primary">Submit</button>
         </form>
-        <br>
-        <br>
-        <h5>
-            <a href="https://rajpurkar.github.io/SQuAD-explorer/explore/v2.0/dev/" target="_blank">The Stanford Question Answering Dataset
-        </h5>
+        
+        <label for="">Các câu trả lời tìm kiếm được</label>
+
+        <ul>
+            {% for item in ListAns %}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ul>
     </div>
 
 
-    <script>
-        remove_fields.onclick = function () {
-            var input_tags = getForm.getElementsByTagName('input');
 
-            console.log(input_tags)
-            if (input_tags.length > 2) {
-                getForm.removeChild(getForm.lastChild);
-                getForm.removeChild(getForm.lastChild);
-                getForm.removeChild(getForm.lastChild);
-            }
-        }
 
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-        $.getJSON('//api.ipify.org?format=jsonp&callback=?', function (data) {
-            $("#ip").html(data.ip);
-        });
-    </script>
     <br>
     <footer class="tabcontent container">
-
         <div>
             Copyright &copy;
             <script>document.write(new Date().getFullYear())</script>
