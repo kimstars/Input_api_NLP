@@ -280,9 +280,9 @@ def crawlData(url):
 @app.get("/searchGG", response_class=HTMLResponse)
 async def Find_Ans(request: Request):
     ListAns = []
-    return templates.TemplateResponse("searchGG.html", {"request": request, "ListAns":ListAns})
+    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns})
 
 @app.post('/searchGG')
 async def Find_Ans(request: Request,question: str  = Form(...)):
     ListAns = ggapi.GGSearchAPI(question)
-    return templates.TemplateResponse("searchGG.html",{"request": request,"ListAns":ListAns })
+    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns })
