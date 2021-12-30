@@ -59,9 +59,11 @@
         <div class="mb-4">
             <h1>Tìm kiếm câu trả lời </h1>
 
-            <h6><i>
+            <h6>
+                <i>
                     Thực hiện tìm kiếm và tách thông tin từ tìm kiếm trên Google
-                </i></h6>
+                </i>
+            </h6>
 
 
 
@@ -69,7 +71,7 @@
 
         <form action="/searchGG" method="POST">
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Câu hỏi của bạn ?" name="question">
+                <input type="text" class="form-control" placeholder="Câu hỏi của bạn ?" name="question" value="{{question}}">
             </div>
 
             <!-- <label for="">Chọn collection muốn lưu data</label>

@@ -282,11 +282,12 @@ async def Find_Ans(request: Request):
     ListAns = []
     ListLink = []
     leng = 0
-    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns, "ListLink":ListLink , "leng":leng})
+    question = ""
+    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns, "ListLink":ListLink , "leng":leng , "question" : question})
 
 @app.post('/searchGG')
 async def Find_Ans(request: Request,question: str  = Form(...)):
     (ListAns,ListLink) = ggapi.GGSearchAPI(question)
     leng = (len(ListAns))
     print("Số kết quả tìm được ===========> ",leng)
-    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns, "ListLink":ListLink, "leng":leng })
+    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns, "ListLink":ListLink, "leng":leng, "question" : question })
