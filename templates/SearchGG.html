@@ -74,25 +74,25 @@
                 <input type="text" class="form-control" placeholder="Câu hỏi của bạn ?" name="question" value="{{question}}">
             </div>
 
-            <!-- <label for="">Chọn collection muốn lưu data</label>
-            
-            <div class="input-group mb-3">
-                <select class="form-control" id="choose" name="nameCollection">
-                    {% for item in CollectionName %}
-                    <option value="{{item}}">{{item}}</option>
-                    {% endfor %}
-                </select>
-            </div> -->
             <button class="btn btn-primary">Submit</button>
         </form>
-        
+        <br>
         <label for="">Các câu trả lời tìm kiếm được</label>
 
         <ul>
             {% for i in range(0, leng) %}
-            <li> <a href= "{{ListLink[i]}}" target="_blank">{{ListAns[i]}}</li>
+            <li> <a href= "{{ListLink[i]}}" target="_blank">{{ListAns[i]}} </a></li>
             {% endfor %}
         </ul>
+
+        <hr>
+        <label for="">Các câu hỏi tìm kiếm gần đây</label>
+        <ul>
+            {% for i in range(0, 10) %}
+            <li> {{ListRecent[i]}}</li>
+            {% endfor %}
+        </ul>
+
     </div>
 
 

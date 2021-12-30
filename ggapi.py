@@ -7,7 +7,10 @@ import json
 
 load_dotenv()
 
+
+
 def GGSearchAPI(question):
+    f = open("log.txt","a").write("\n"+question)
     params = {
         "engine": "google",
         "q": question,
@@ -31,3 +34,8 @@ def GGSearchAPI(question):
         return ([],[])
     
 # print(GGSearchAPI("Ai là người giàu nhất thế giới?"))
+
+
+def recentQuestion():
+    f = open("log.txt","r").read().split("\n")[::-1]
+    return f
