@@ -43,7 +43,7 @@ starlette==0.14.2
 threadpoolctl==2.2.0
 toml==0.10.2
 tqdm==4.61.2
-transformers==3.5.1
+transformers>=3.5.1
 typing-extensions==3.10.0.0
 unicorn==1.0.3
 Unidecode==1.2.0

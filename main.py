@@ -14,6 +14,7 @@ import os
 import datetime
 from bs4 import BeautifulSoup
 import urllib.request
+from BERT import answeringQA
 import ggapi
 
 load_dotenv()
@@ -284,15 +285,21 @@ async def Find_Ans(request: Request):
     ListLink = []
     leng = 0
     question = ""
+    PredictAnswer = [{
+        "answer":"",
+        "score_start": 0
+    }]
     ListRecent = ggapi.recentQuestion()
-    return templates.TemplateResponse("SearchGG.html", {"request": request, "ListAns":ListAns, "ListLink":ListLink , "leng":leng , "question" : question, "ListRecent" :ListRecent})
+    return templates.TemplateResponse("SearchGG.html", {"request": request,"PredictAnswer":PredictAnswer, "ListAns":ListAns, "ListLink":ListLink , "leng":leng , "question" : question, "ListRecent" :ListRecent})
 
 @app.post('/searchGG')
 async def Find_Ans(request: Request,question: str  = Form(...)):
-    (ListAns,ListLink) = ggapi.GGSearchAPI(question)
-    leng = (len(ListAns))
+    (PredictAnswer,ListLink,listcontext) = answeringQA(question)
+    
+    leng = (len(listcontext))
     print("Số kết quả tìm được ===========> ",leng)
+    print(PredictAnswer)
     ListRecent = ggapi.recentQuestion()
-    return templates.TemplateResponse("SearchGG.html",{"request": request,"ListAns":ListAns, "ListLink":ListLink, "leng":leng, "question" : question , "ListRecent" :ListRecent})
+    return templates.TemplateResponse("SearchGG.html",{"request": request,"PredictAnswer":PredictAnswer,"ListAns":listcontext, "ListLink":ListLink, "leng":leng, "question" : question , "ListRecent" :ListRecent})
 
 

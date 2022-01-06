@@ -77,6 +77,11 @@
             <button class="btn btn-primary">Submit</button>
         </form>
         <br>
+        <label for="">Câu trả lời Qua Model BERT tìm được</label>
+            <p><b>{{PredictAnswer[0]["answer"]}}</b></p>
+            <p>Độ chính xác : {{PredictAnswer[0]["score_start"]}}</p>
+        <hr>
+        <br>
         <label for="">Các câu trả lời tìm kiếm được</label>
 
         <ul>
